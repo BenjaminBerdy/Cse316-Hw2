@@ -24,8 +24,8 @@ export const LogoDefaults = {
   TEXT : "goLogoLo Logo",
   TEXT_COLOR : "#FF0000",
   FONT_SIZE : 24,
-  BACKGROUND_COLOR: '#000000',
-  BORDER_COLOR: '#FFFFFF',
+  BACKGROUND_COLOR: '#0000FF',
+  BORDER_COLOR: '#00FF00',
   BORDER_RADIUS: 24,
   BORDER_THICKNESS: 24,
   PADDING: 24,
@@ -266,7 +266,7 @@ class App extends Component {
 
     // AND SET THE STATE, WHICH SHOULD FORCE A render
     this.setState({
-      logos: nextLogos
+      logos: this.state.logos.slice(1, this.state.logos.length)
     }, this.afterLogoDeleted);
   }
 
@@ -319,6 +319,8 @@ class App extends Component {
 
   afterLogoDeleted = () => {
     console.log("App afterLogoDeleted logos: " + this.logosToString(this.state.logos));
+    let logosString = JSON.stringify(this.state.logos);
+    localStorage.setItem("recent_work", logosString);
     // FIRST GO HOME
     this.goToHomeScreen();
   }
@@ -375,7 +377,7 @@ class App extends Component {
       case AppScreen.EDIT_SCREEN:
         return <EditScreen
           logo={this.state.currentLogo}                         // DATA NEEDED BY THIS COMPONENT AND ITS DESCENDANTS
-          deleteLogoCallback={this.deleteLogo}
+          deleteLogoCallback={this.deleteLogo}          
           goToHomeCallback={this.goToHomeScreen}                    // NAVIGATION CALLBACK
           changeLogoCallback={this.buildChangeLogoTransaction}  // TRANSACTION CALLBACK
           undoCallback={this.undo}                        // TRANSACTION CALLBACK    

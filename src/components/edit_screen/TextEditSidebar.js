@@ -10,7 +10,7 @@ class TextEditSidebar extends Component {
             textColor : "#FF0000",
             fontSize : 24,
             backgroundColor : "#0000FF",
-            borderColor : "#FFFFFF",
+            borderColor : "#00FF00",
             borderRadius : 24,
             borderThickness : 24,
             padding : 24,
