@@ -5,10 +5,10 @@ import { Modal } from 'react-materialize';
 class TextEditSidebar extends Component {
     constructor() {
         super();
-
         // WE'LL MANAGE THE UI CONTROL
         // VALUES HERE
         this.state = {
+            text: "GoLogoLo Logo",
             textColor : "#FF0000",
             fontSize : 24,
             backgroundColor : "#0000FF",
@@ -16,9 +16,27 @@ class TextEditSidebar extends Component {
             borderRadius : 24,
             borderThickness : 24,
             padding : 24,
-            margin : 24
+            margin : 24,
+            temptext : "GoLogoLo Logo"
         }
+
     }
+
+    updateLogo(){
+        if(this.props != null){
+        this.setState({
+            text : this.props.logo.text,
+            textColor : this.props.logo.textColor,
+            fontSize : this.props.logo.fontSize,
+            backgroundColor : this.props.logo.backgroundColor,
+            borderColor : this.props.logo.borderColor,
+            borderRadius : this.props.logo.borderRadius,
+            borderThickness : this.props.logo.borderThickness,
+            padding : this.props.logo.padding,
+            margin : this.props.logo.margin,
+            temptext: this.props.logo.text
+         });
+    }}
 
     keydownHandler =(e) => {
         if(e.keyCode===90 && e.ctrlKey) this.handleUndo();
@@ -26,30 +44,28 @@ class TextEditSidebar extends Component {
       }
       componentDidMount(){
         document.addEventListener('keydown',this.keydownHandler);
-        if(this.props != null){
-            this.setState({
-                textColor : this.props.logo.textColor,
-                fontSize : this.props.logo.fontSize,
-                backgroundColor : this.props.logo.backgroundColor,
-                borderColor : this.props.logo.borderColor,
-                borderRadius : this.props.logo.borderRadius,
-                borderThickness : this.props.logo.borderThickness,
-                padding : this.props.logo.padding,
-                margin : this.props.logo.margin
-             }, this.completeUserEditing);
+        this.updateLogo();
         }
-      }
       componentWillUnmount(){
         document.removeEventListener('keydown',this.keydownHandler);
       }
+    
+    handleOnChange = (e) =>{
+        this.setState({temptext: e.target.value})
+    }  
 
+    handleEditText = () => {
+        this.setState({text: this.state.temptext}, this.completeUserEditing);
+    }
 
     handleUndo = () => {
         this.props.undoCallback();
+        this.updateLogo();
     }
 
     handleRedo = () => {
         this.props.redoCallback();
+        this.updateLogo();
     }
 
     handleTextColorChange = (event) => {
@@ -104,12 +120,21 @@ class TextEditSidebar extends Component {
         let undoClass = "waves-effect waves-light btn-small";
         if (undoDisabled)
             undoClass += " disabled";
+        let redoDisabled = !this.props.canRedo();
+        let redoClass = "waves-effect waves-light btn-small";
+        if (redoDisabled)
+            redoClass += " disabled";
         return (
             <div className="card-panel col s4">
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
-                        <Modal trigger={<button className="waves-effect waves-light btn-small">&#9998;</button>}></Modal>    
+                        <Modal trigger={<button className="waves-effect waves-light btn-small">&#9998;</button>}>
+                            <div className="col s4">Enter Logo Text:</div>
+                            <input></input>
+                            <button onClick ={this.handleEditText}>Confirm</button>
+                        </Modal>    
                         <button className={undoClass} onClick={this.handleUndo}>Undo</button>
+                        <button className={redoClass} onClick={this.handleRedo}>Redo</button>
                     </div>
                 </div>
                 <div className="card blue-grey darken-1">

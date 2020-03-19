@@ -37,7 +37,8 @@ export class EditScreen extends Component {
                         changeLogoCallback={this.props.changeLogoCallback}
                         undoCallback={this.props.undoCallback}   
                         redoCallback={this.props.redoCallback}                                       
-                        canUndo={this.props.canUndo}                         
+                        canUndo={this.props.canUndo}         
+                        canRedo={this.props.canRedo}                
                     />
                     <div className="col s8" style={{overflow: 'auto'}}>
                     <TextEditWorkspace
