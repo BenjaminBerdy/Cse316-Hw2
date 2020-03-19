@@ -25,7 +25,6 @@ class HomeScreen extends Component {
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\tHomeScreen render");
-
         return (
             <div className="container row">
                 <div className="col s4">
@@ -37,16 +36,10 @@ class HomeScreen extends Component {
                 </div>
                 <div className="col s8">
                     <div id="home_banner_container">
-                        @todo<br />
-                        List Maker
+                        GoLogoLo
                     </div>
-                    <div>
-                        <button
-                            style={{ cursor: "pointer" }}
-                            onClick={this.handleAddNewLogo}>
-                            Create a New Logo
-                        </button>
-                    </div>
+                    <button className="New Logo" onClick={this.handleAddNewLogo}>Create New Logo</button>
+
                 </div>
             </div>
         )

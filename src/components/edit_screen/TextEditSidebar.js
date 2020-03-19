@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Modal } from 'react-materialize';
+
 
 class TextEditSidebar extends Component {
     constructor() {
@@ -24,6 +26,18 @@ class TextEditSidebar extends Component {
       }
       componentDidMount(){
         document.addEventListener('keydown',this.keydownHandler);
+        if(this.props != null){
+            this.setState({
+                textColor : this.props.logo.textColor,
+                fontSize : this.props.logo.fontSize,
+                backgroundColor : this.props.logo.backgroundColor,
+                borderColor : this.props.logo.borderColor,
+                borderRadius : this.props.logo.borderRadius,
+                borderThickness : this.props.logo.borderThickness,
+                padding : this.props.logo.padding,
+                margin : this.props.logo.margin
+             }, this.completeUserEditing);
+        }
       }
       componentWillUnmount(){
         document.removeEventListener('keydown',this.keydownHandler);
@@ -94,7 +108,7 @@ class TextEditSidebar extends Component {
             <div className="card-panel col s4">
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
-                        <button className="waves-effect waves-light btn-small">&#9998;</button>
+                        <Modal trigger={<button className="waves-effect waves-light btn-small">&#9998;</button>}></Modal>    
                         <button className={undoClass} onClick={this.handleUndo}>Undo</button>
                     </div>
                 </div>
