@@ -50,7 +50,7 @@ class TextEditSidebar extends Component {
         document.removeEventListener('keydown',this.keydownHandler);
       }
     
-    handleOnChange = (e) =>{
+    handleTextChange = (e) =>{
         this.setState({temptext: e.target.value})
     }  
 
@@ -111,7 +111,7 @@ class TextEditSidebar extends Component {
     completeUserEditing = () => {
         console.log("completeUserEditing");
         console.log("this.state.textColor: " + this.state.textColor);
-        this.props.changeLogoCallback(this.props.logo, this.props.logo.key, this.props.logo.text, this.state.textColor, this.state.fontSize, 
+        this.props.changeLogoCallback(this.props.logo, this.props.logo.key, this.state.text, this.state.textColor, this.state.fontSize, 
             this.state.backgroundColor,this.state.borderColor, this.state.borderRadius, this.state.borderThickness, this.state.padding, this.state.margin);
     }
 
@@ -130,8 +130,8 @@ class TextEditSidebar extends Component {
                     <div className="card-content white-text">
                         <Modal trigger={<button className="waves-effect waves-light btn-small">&#9998;</button>}>
                             <div className="col s4">Enter Logo Text:</div>
-                            <input></input>
-                            <button onClick ={this.handleEditText}>Confirm</button>
+                            <input onChange={this.handleTextChange} value={this.state.temptext}></input>
+                            <button className="modal-close" onClick ={this.handleEditText}>Confirm</button>
                         </Modal>    
                         <button className={undoClass} onClick={this.handleUndo}>Undo</button>
                         <button className={redoClass} onClick={this.handleRedo}>Redo</button>
