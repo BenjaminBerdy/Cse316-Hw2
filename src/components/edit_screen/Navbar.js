@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal } from 'react-materialize';
+import { Modal,Button } from 'react-materialize';
 
 class Navbar extends React.Component {
   constructor() {
@@ -26,6 +26,7 @@ class Navbar extends React.Component {
     this.props.deleteLogoCallback();
   }
 
+
   render() {
     return (
       <nav>
@@ -35,10 +36,10 @@ class Navbar extends React.Component {
                 onClick={this.handleGoHome}>
             goLogoLo
           </div>
-          <Modal trigger={<ul id="nav-mobile" className="right hide-on-med-and-down">
+          <Modal actions="" header="Confirm you want to delete the current logo."trigger={<ul id="nav-mobile" className="right hide-on-med-and-down">
             <li style={ {cursor: "pointer"} }>&#128465;</li></ul>}>
-            <div className="col s4">Please confirm you want to delete the current logo.:</div>
-            <button onClick ={this.handleDeleteLogo}>Confirm</button>
+            <Button onClick ={this.handleDeleteLogo}>Confirm</Button>
+            <Button className ="modal-close">Cancel</Button>
           </Modal>
           
         </div>

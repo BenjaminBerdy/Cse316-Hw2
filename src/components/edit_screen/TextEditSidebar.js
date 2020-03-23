@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal } from 'react-materialize';
+import { Modal, Button } from 'react-materialize';
 
 
 class TextEditSidebar extends Component {
@@ -55,7 +55,13 @@ class TextEditSidebar extends Component {
     }  
 
     handleEditText = () => {
-        this.setState({text: this.state.temptext}, this.completeUserEditing);
+        if(this.state.temptext.trim().length != 0){
+            this.setState({text: this.state.temptext}, this.completeUserEditing);
+        }
+    }
+
+    handleCancel = () =>{
+        this.updateLogo();
     }
 
     handleUndo = () => {
@@ -128,10 +134,10 @@ class TextEditSidebar extends Component {
             <div className="card-panel col s4">
                 <div className="card blue-grey darken-1">
                     <div className="card-content white-text">
-                        <Modal trigger={<button className="waves-effect waves-light btn-small">&#9998;</button>}>
-                            <div className="col s4">Enter Logo Text:</div>
+                        <Modal actions="" header="Enter Logo Text" trigger={<Button className="waves-effect waves-light btn-small">&#9998;</Button>}>
                             <input onChange={this.handleTextChange} value={this.state.temptext}></input>
-                            <button className="modal-close" onClick ={this.handleEditText}>Confirm</button>
+                            <Button className="modal-close" onClick ={this.handleEditText}>Confirm</Button>
+                            <Button className="modal-close" onClick ={this.handleCancel}>Cancel</Button>
                         </Modal>    
                         <button className={undoClass} onClick={this.handleUndo}>Undo</button>
                         <button className={redoClass} onClick={this.handleRedo}>Redo</button>
